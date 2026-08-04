@@ -7,7 +7,7 @@
 <meta name="description" content="Happy Birthday Fitria Rahmadanie" />
 <meta property="og:title" content="razz sayangg piaaa banyakkk banyakkk" />
 <meta property="og:description" content="Happy Birthday Fitria Rahmadanie" />
-<meta property="og:image" content="assets/cover.jpg" />
+<meta property="og:image" content="assets/photos/cover.jpg" />
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,9 +18,46 @@
 
 <!-- floating background hearts (coded, not emoji) -->
 <div class="bg-hearts" id="bgHearts" aria-hidden="true"></div>
+<!-- floating background flowers (coded, not emoji) -->
+<div class="bg-flowers" id="bgFlowers" aria-hidden="true"></div>
+
+<!-- ================= PIN SCREEN ================= -->
+<section id="pinScreen" class="pin-screen">
+  <div class="cover-sparkles" aria-hidden="true">
+    <span class="ico ico-sparkle s1"></span>
+    <span class="ico ico-sparkle s2"></span>
+    <span class="ico ico-sparkle s3"></span>
+  </div>
+
+  <span class="ico ico-heart-bubble pin-topicon"></span>
+  <p class="cover-eyebrow">Khusus untuk kamu</p>
+  <h1 class="script-heading pin-title">Masukin PIN dulu yuk</h1>
+
+  <div class="pin-dots" id="pinDots" aria-hidden="true"></div>
+
+  <p class="pin-clue">clue: tahun, bulan, tanggal lahir kamu :3</p>
+  <p class="pin-error" id="pinError" hidden>PIN-nya salah, coba lagi ya</p>
+
+  <div class="keypad" id="keypad">
+    <button class="key" data-key="1">1</button>
+    <button class="key" data-key="2">2</button>
+    <button class="key" data-key="3">3</button>
+    <button class="key" data-key="4">4</button>
+    <button class="key" data-key="5">5</button>
+    <button class="key" data-key="6">6</button>
+    <button class="key" data-key="7">7</button>
+    <button class="key" data-key="8">8</button>
+    <button class="key" data-key="9">9</button>
+    <button class="key key-clear" data-key="clear">Hapus</button>
+    <button class="key" data-key="0">0</button>
+    <button class="key key-back" data-key="back" aria-label="Backspace">
+      <svg viewBox="0 0 24 24" width="20" height="20"><path fill="#8a3b63" d="M9 6l-7 6 7 6h11a2 2 0 002-2V8a2 2 0 00-2-2H9zm2.5 3.5L14 12l-2.5 2.5-1.06-1.06L11.88 12l-1.44-1.44L11.5 9.5zm5 0L19 12l-2.5 2.5-1.06-1.06L16.88 12l-1.44-1.44L16.5 9.5z"/></svg>
+    </button>
+  </div>
+</section>
 
 <!-- ================= COVER SCREEN ================= -->
-<section id="cover" class="cover">
+<section id="cover" class="cover" hidden>
   <div class="cover-sparkles" aria-hidden="true">
     <span class="ico ico-sparkle s1"></span>
     <span class="ico ico-sparkle s2"></span>
@@ -31,7 +68,7 @@
   <h1 class="script-title">Happy Birthday<br/>Fitria Rahmadanie</h1>
 
   <div class="gift-wrap" id="giftBox" role="button" tabindex="0" aria-label="Buka kejutan">
-    <div class="gift">
+    <div class="gift" id="giftGraphic">
       <div class="gift-lid"></div>
       <div class="gift-box"></div>
       <div class="gift-ribbon-v"></div>
@@ -42,6 +79,7 @@
         <span class="bow-knot"></span>
       </div>
     </div>
+    <div class="gift-burst" id="giftBurst" aria-hidden="true"></div>
   </div>
 
   <div class="tap-hint">
@@ -68,8 +106,6 @@
       <span class="ico ico-flower calendar-flower"></span>
     </div>
 
-    <p class="handwritten-cue">Nyalakan musiknya dulu yuk!</p>
-
     <div class="music-card">
       <div class="music-avatar">
         <div class="vinyl" id="vinyl"></div>
@@ -83,11 +119,7 @@
         <span class="ico ico-pause" id="pauseIcon" hidden></span>
       </button>
     </div>
-    <div id="spotifyEmbedWrap" class="spotify-embed-wrap">
-      <iframe id="spotifyFrame" style="border-radius:16px" src="https://open.spotify.com/embed/track/6PqWdGIYq5xdLaa4zCZfRp?utm_source=generator&theme=0"
-        width="100%" height="152" frameBorder="0" allowfullscreen=""
-        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-    </div>
+    <audio id="bgAudio" src="assets/songs/music.mp3" preload="auto"></audio>
   </section>
 
   <!-- ===== Pretty girl heart photo + message ===== -->
@@ -95,7 +127,7 @@
     <h2 class="script-heading">Fitria Rahmadanie</h2>
 
     <div class="heart-frame-wrap">
-      <img class="heart-photo" src="assets/hero.jpg" alt="Foto Fitria Rahmadanie" />
+      <img class="heart-photo" src="assets/photos/hero.jpg" alt="Foto Fitria Rahmadanie" />
       <span class="ico ico-bouquet heart-bouquet"></span>
       <span class="ico ico-star heart-star"></span>
       <span class="ico ico-heart-bubble heart-bubble"></span>
@@ -106,6 +138,17 @@
       <span class="ico ico-bow message-bow-top"></span>
       <p class="message-title">Today is your day.</p>
       <p class="message-body">Semoga hari ini dipenuhi sama hal-hal yang bikin kamu senyum, orang-orang yang bikin kamu ngerasa disayang, dan momen-momen kecil yang nantinya bakal selalu kamu inget.</p>
+    </div>
+  </section>
+
+  <!-- ===== Digital bouquet ===== -->
+  <section class="panel panel-soft bouquet-section">
+    <h2 class="script-heading">Buket Bunga Buat Kamu</h2>
+    <p class="handwritten-cue bouquet-cue">Petik satu bunga, ada ucapan kecil di dalamnya</p>
+    <div class="bouquet-field" id="bouquetField" aria-hidden="false"></div>
+    <div class="bouquet-note" id="bouquetNote" hidden>
+      <span class="ico ico-heart-small"></span>
+      <p id="bouquetNoteText"></p>
     </div>
   </section>
 
@@ -137,17 +180,17 @@
     </div>
 
     <div class="oval-frame-wrap">
-      <img class="oval-photo" src="assets/gallery-1.jpg" alt="Foto Fitria" />
+      <img class="oval-photo" src="assets/photos/gallery-1.jpg" alt="Foto Fitria" />
       <span class="ico ico-butterfly oval-butterfly"></span>
       <span class="ico ico-envelope-flowers oval-envelope"></span>
       <span class="ico ico-cloud oval-cloud"></span>
     </div>
 
     <div class="polaroid-grid">
-      <figure class="polaroid"><img src="assets/gallery-2.jpg" alt="Foto Fitria"/></figure>
-      <figure class="polaroid"><img src="assets/gallery-3.jpg" alt="Foto Fitria"/></figure>
-      <figure class="polaroid"><img src="assets/gallery-4.jpg" alt="Foto Fitria"/></figure>
-      <figure class="polaroid"><img src="assets/gallery-5.jpg" alt="Foto Fitria"/></figure>
+      <figure class="polaroid"><img src="assets/photos/gallery-2.jpg" alt="Foto Fitria"/></figure>
+      <figure class="polaroid"><img src="assets/photos/gallery-3.jpg" alt="Foto Fitria"/></figure>
+      <figure class="polaroid"><img src="assets/photos/gallery-4.jpg" alt="Foto Fitria"/></figure>
+      <figure class="polaroid"><img src="assets/photos/gallery-5.jpg" alt="Foto Fitria"/></figure>
     </div>
   </section>
 
@@ -162,12 +205,23 @@
     </div>
   </section>
 
+  <!-- ===== Top 3 playlist ===== -->
+  <section class="panel panel-stripes playlist-section">
+    <span class="ico ico-star playlist-star"></span>
+    <h2 class="pill-title playlist-title">Top 3 playlist for u</h2>
+    <div class="playlist-list">
+      <div class="spotify-embed-wrap"><iframe src="https://open.spotify.com/embed/track/6PqWdGIYq5xdLaa4zCZfRp?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" style="border-radius:16px"></iframe></div>
+      <div class="spotify-embed-wrap"><iframe src="https://open.spotify.com/embed/track/35o9a4iAfLl5jRmqMX9c1D?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" style="border-radius:16px"></iframe></div>
+      <div class="spotify-embed-wrap"><iframe src="https://open.spotify.com/embed/track/5JESuE80fvausWHjcT9QVh?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" style="border-radius:16px"></iframe></div>
+    </div>
+  </section>
+
   <!-- ===== Closing ===== -->
   <section class="panel panel-plaid closing-section">
     <h2 class="script-heading">Closing</h2>
 
     <div class="closing-frame-wrap">
-      <img class="closing-photo" src="assets/closing.jpg" alt="Foto Fitria Rahmadanie" />
+      <img class="closing-photo" src="assets/photos/closing.jpg" alt="Foto Fitria Rahmadanie" />
       <span class="ico ico-tulips closing-tulips"></span>
       <span class="ico ico-teddy closing-teddy"></span>
     </div>

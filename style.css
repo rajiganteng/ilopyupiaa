@@ -179,11 +179,13 @@ html, body {
 }
 
 .gift-wrap {
+  position: relative;
   cursor: pointer;
   padding: 10px;
   animation: giftBounce 2.4s ease-in-out infinite;
   outline: none;
 }
+.gift-wrap.opening { animation: none; }
 @keyframes giftBounce {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-10px); }
@@ -237,13 +239,15 @@ html, body {
 .tap-text {
   font-family: 'Baloo 2', cursive;
   font-weight: 700;
-  color: #fff;
-  background: var(--pink-400);
-  padding: 8px 20px;
-  border-radius: 20px;
-  border: 2px solid #fff;
-  box-shadow: 0 6px 16px rgba(224,75,134,0.3);
-  font-size: 1rem;
+  color: var(--pink-600);
+  font-size: 0.8rem;
+  letter-spacing: 0.02em;
+  text-shadow: 0 1px 0 rgba(255,255,255,0.7);
+  animation: tapPulse 1.6s ease-in-out infinite;
+}
+@keyframes tapPulse {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
 }
 
 /* ============ MAIN CONTENT LAYOUT ============ */
@@ -663,6 +667,210 @@ html, body {
 @keyframes clickHeartPop {
   0% { transform: translateY(0) scale(0.6); opacity: 1; }
   100% { transform: translateY(-70px) scale(1.1); opacity: 0; }
+}
+
+/* ============ BACKGROUND FLOWERS ============ */
+.bg-flowers {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+.bg-flowers .float-flower {
+  position: absolute;
+  top: -60px;
+  opacity: 0.5;
+  animation: flowerFall linear infinite;
+}
+@keyframes flowerFall {
+  0%   { transform: translateY(0) rotate(0deg); opacity: 0; }
+  10%  { opacity: 0.55; }
+  90%  { opacity: 0.35; }
+  100% { transform: translateY(112vh) rotate(200deg); opacity: 0; }
+}
+
+/* ============ PIN SCREEN ============ */
+.pin-screen {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 32px 24px;
+  background: linear-gradient(180deg, var(--pink-100) 0%, var(--pink-200) 100%);
+  z-index: 2;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.pin-screen.hide {
+  opacity: 0;
+  transform: scale(1.05);
+  pointer-events: none;
+}
+.pin-topicon { margin-bottom: 6px; }
+.pin-title {
+  font-size: 2rem;
+  margin: 0 0 22px;
+}
+.pin-dots {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 280px;
+  margin-bottom: 14px;
+}
+.pin-dots.shake { animation: pinShake 0.5s ease; }
+@keyframes pinShake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-10px); }
+  40% { transform: translateX(10px); }
+  60% { transform: translateX(-8px); }
+  80% { transform: translateX(8px); }
+}
+.pin-heart-slot {
+  width: 26px; height: 26px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 29'%3E%3Cpath fill='none' stroke='%23e04b86' stroke-width='2.4' d='M16 29S0 18.5 0 8.8C0 3.9 3.9 0 8.7 0c2.9 0 5.6 1.4 7.3 3.7C17.7 1.4 20.4 0 23.3 0 28.1 0 32 3.9 32 8.8 32 18.5 16 29 16 29z'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+  transition: transform 0.2s ease;
+}
+.pin-heart-slot.filled {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 29'%3E%3Cpath fill='%23f7669e' stroke='%23e04b86' stroke-width='1' d='M16 29S0 18.5 0 8.8C0 3.9 3.9 0 8.7 0c2.9 0 5.6 1.4 7.3 3.7C17.7 1.4 20.4 0 23.3 0 28.1 0 32 3.9 32 8.8 32 18.5 16 29 16 29z'/%3E%3C/svg%3E");
+  transform: scale(1.15);
+}
+.pin-clue {
+  font-size: 0.82rem;
+  color: var(--pink-600);
+  font-style: italic;
+  margin: 0 0 6px;
+}
+.pin-error {
+  font-size: 0.82rem;
+  color: #d13a3a;
+  font-weight: 700;
+  margin: 4px 0 0;
+}
+.keypad {
+  margin-top: 22px;
+  display: grid;
+  grid-template-columns: repeat(3, 64px);
+  gap: 14px;
+  justify-content: center;
+}
+.key {
+  width: 64px; height: 64px;
+  border-radius: 50%;
+  border: none;
+  background: #fff;
+  color: var(--plum-700);
+  font-family: 'Baloo 2', sans-serif;
+  font-weight: 700;
+  font-size: 1.3rem;
+  box-shadow: 0 6px 14px rgba(224,75,134,0.18);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: transform 0.12s ease, background 0.12s ease;
+}
+.key:active { transform: scale(0.9); background: var(--pink-200); }
+.key-clear {
+  font-size: 0.75rem;
+  background: transparent;
+  box-shadow: none;
+  color: var(--pink-600);
+}
+.key-back { background: var(--pink-100); }
+
+/* ============ GIFT OPEN ANIMATION ============ */
+.gift-wrap.opening .gift {
+  animation: giftPop 0.75s cubic-bezier(.36,1.8,.4,1) forwards;
+}
+@keyframes giftPop {
+  0%   { transform: scale(1) rotate(0deg); }
+  25%  { transform: scale(0.85) rotate(-6deg); }
+  45%  { transform: scale(1.25) rotate(5deg); }
+  65%  { transform: scale(0.95) rotate(-3deg); }
+  100% { transform: scale(1.5) rotate(0deg); opacity: 0; }
+}
+.gift-wrap.opening .gift-lid {
+  animation: lidFly 0.75s ease forwards;
+}
+@keyframes lidFly {
+  0%   { transform: translateY(0) rotate(0deg); }
+  100% { transform: translateY(-90px) translateX(-30px) rotate(-60deg); opacity: 0; }
+}
+.gift-burst {
+  position: absolute;
+  inset: -60px;
+  pointer-events: none;
+}
+.gift-burst .burst-piece {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 16px; height: 16px;
+  opacity: 0;
+}
+.gift-wrap.opening .gift-burst .burst-piece {
+  animation: burstOut 0.9s ease-out forwards;
+}
+@keyframes burstOut {
+  0% { opacity: 1; transform: translate(-50%,-50%) scale(0.4) rotate(0deg); }
+  100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(1.1) rotate(180deg); }
+}
+
+/* ============ BOUQUET ============ */
+.bouquet-cue { margin-top: -14px; margin-bottom: 26px; }
+.bouquet-field {
+  position: relative;
+  max-width: 360px;
+  height: 300px;
+  margin: 0 auto;
+}
+.bouquet-flower {
+  position: absolute;
+  width: 54px; height: 54px;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'%3E%3Cg fill='%23ffb3d1' stroke='%23e04b86' stroke-width='1.5'%3E%3Cellipse cx='40' cy='18' rx='11' ry='16'/%3E%3Cellipse cx='40' cy='62' rx='11' ry='16'/%3E%3Cellipse cx='18' cy='40' rx='16' ry='11'/%3E%3Cellipse cx='62' cy='40' rx='16' ry='11'/%3E%3Cellipse cx='24' cy='24' rx='11' ry='16' transform='rotate(-45 24 24)'/%3E%3Cellipse cx='56' cy='56' rx='11' ry='16' transform='rotate(-45 56 56)'/%3E%3Cellipse cx='56' cy='24' rx='11' ry='16' transform='rotate(45 56 24)'/%3E%3Cellipse cx='24' cy='56' rx='11' ry='16' transform='rotate(45 24 56)'/%3E%3C/g%3E%3Ccircle cx='40' cy='40' r='11' fill='%23f7669e'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  animation: flowerSway 3.4s ease-in-out infinite;
+  transition: transform 0.15s ease;
+}
+.bouquet-flower:nth-child(odd) { animation-duration: 4s; }
+.bouquet-flower:hover, .bouquet-flower:active { transform: scale(1.15); }
+.bouquet-flower.picked { opacity: 0.35; }
+@keyframes flowerSway {
+  0%, 100% { transform: rotate(-6deg); }
+  50% { transform: rotate(6deg); }
+}
+.bouquet-note {
+  max-width: 300px;
+  margin: 18px auto 0;
+  background: #fff;
+  border-radius: 18px;
+  border: 2px dashed var(--pink-300);
+  padding: 16px 18px;
+  box-shadow: var(--shadow-soft);
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  text-align: left;
+}
+.bouquet-note p { margin: 0; font-size: 0.88rem; line-height: 1.5; }
+
+/* ============ TOP 3 PLAYLIST ============ */
+.playlist-section { position: relative; }
+.playlist-star { position: absolute; top: 24px; right: 50%; transform: translateX(60px) rotate(-10deg); }
+.playlist-title { margin-bottom: 26px; }
+.playlist-list {
+  max-width: 340px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
 }
 
 @media (min-width: 640px) {
