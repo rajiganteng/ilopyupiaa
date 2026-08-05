@@ -126,6 +126,11 @@ html, body {
   width: 70px; height: 60px;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 68'%3E%3Crect x='4' y='16' width='60' height='44' rx='4' fill='%23fff3e6' stroke='%23b23568' stroke-width='2'/%3E%3Cpath d='M4 18 L34 42 L64 18' fill='none' stroke='%23b23568' stroke-width='2'/%3E%3Cg stroke='%233c8a4c' stroke-width='2'%3E%3Cline x1='60' y1='34' x2='60' y2='4'/%3E%3Cline x1='68' y1='30' x2='72' y2='10'/%3E%3C/g%3E%3Cg fill='%23f7669e'%3E%3Ccircle cx='60' cy='6' r='6'/%3E%3Ccircle cx='72' cy='10' r='5'/%3E%3C/g%3E%3C/svg%3E");
 }
+.ico-party {
+  width: 34px; height: 34px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Cpath d='M10 50 L26 16 L46 34 Z' fill='%23ffb3d1' stroke='%23b23568' stroke-width='2'/%3E%3Cpath d='M26 16 L46 34' stroke='%23e04b86' stroke-width='1.5'/%3E%3Ccircle cx='12' cy='12' r='3' fill='%23f7669e'/%3E%3Ccircle cx='24' cy='6' r='2.4' fill='%23ffd35e'/%3E%3Ccircle cx='36' cy='10' r='2.8' fill='%23f7669e'/%3E%3Ccircle cx='46' cy='6' r='2' fill='%23ffd35e'/%3E%3Ccircle cx='52' cy='16' r='2.6' fill='%23f7669e'/%3E%3Crect x='8' y='46' width='6' height='3' rx='1' fill='%23ffd35e' transform='rotate(20 8 46)'/%3E%3Crect x='16' y='50' width='6' height='3' rx='1' fill='%23f7669e' transform='rotate(-15 16 50)'/%3E%3C/svg%3E");
+}
+.ico-party-flip { transform: scaleX(-1); }
 .ico-play {
   width: 20px; height: 20px;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23fff' d='M6 4l14 8-14 8z'/%3E%3C/svg%3E");
@@ -292,6 +297,37 @@ html, body {
 .script-heading {
   font-size: 2.4rem;
   margin: 0 0 28px;
+}
+
+/* ===== Happy Birthday banner ===== */
+.hbday-banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.hbday-banner .ico-party {
+  animation: partyWiggle 2.2s ease-in-out infinite;
+}
+.hbday-banner .ico-party-flip {
+  animation: partyWiggleFlip 2.2s ease-in-out infinite;
+}
+@keyframes partyWiggle {
+  0%, 100% { transform: rotate(-8deg); }
+  50% { transform: rotate(6deg); }
+}
+@keyframes partyWiggleFlip {
+  0%, 100% { transform: scaleX(-1) rotate(-8deg); }
+  50% { transform: scaleX(-1) rotate(6deg); }
+}
+.hbday-text {
+  font-family: 'Baloo 2', sans-serif;
+  font-weight: 800;
+  font-size: 1.5rem;
+  color: var(--pink-600);
+  margin: 0;
+  text-shadow: 0 2px 0 rgba(255,255,255,0.7);
 }
 
 /* ===== calendar ===== */
@@ -732,13 +768,13 @@ html, body {
 }
 .pin-heart-slot {
   width: 26px; height: 26px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 29'%3E%3Cpath fill='none' stroke='%23e04b86' stroke-width='2.4' d='M16 29S0 18.5 0 8.8C0 3.9 3.9 0 8.7 0c2.9 0 5.6 1.4 7.3 3.7C17.7 1.4 20.4 0 23.3 0 28.1 0 32 3.9 32 8.8 32 18.5 16 29 16 29z'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-3 -3 38 35'%3E%3Cpath fill='none' stroke='%23e04b86' stroke-width='2.4' d='M16 29S0 18.5 0 8.8C0 3.9 3.9 0 8.7 0c2.9 0 5.6 1.4 7.3 3.7C17.7 1.4 20.4 0 23.3 0 28.1 0 32 3.9 32 8.8 32 18.5 16 29 16 29z'/%3E%3C/svg%3E");
   background-size: contain;
   background-repeat: no-repeat;
   transition: transform 0.2s ease;
 }
 .pin-heart-slot.filled {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 29'%3E%3Cpath fill='%23f7669e' stroke='%23e04b86' stroke-width='1' d='M16 29S0 18.5 0 8.8C0 3.9 3.9 0 8.7 0c2.9 0 5.6 1.4 7.3 3.7C17.7 1.4 20.4 0 23.3 0 28.1 0 32 3.9 32 8.8 32 18.5 16 29 16 29z'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-3 -3 38 35'%3E%3Cpath fill='%23f7669e' stroke='%23e04b86' stroke-width='1.4' d='M16 29S0 18.5 0 8.8C0 3.9 3.9 0 8.7 0c2.9 0 5.6 1.4 7.3 3.7C17.7 1.4 20.4 0 23.3 0 28.1 0 32 3.9 32 8.8 32 18.5 16 29 16 29z'/%3E%3C/svg%3E");
   transform: scale(1.15);
 }
 .pin-clue {
@@ -825,26 +861,50 @@ html, body {
 .bouquet-field {
   position: relative;
   max-width: 360px;
-  height: 300px;
+  height: 340px;
   margin: 0 auto;
+}
+.bouquet-stem-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.bouquet-bow {
+  position: absolute;
+  width: 60px; height: 40px;
+  transform: translate(-50%, -50%);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 90 60'%3E%3Cpath d='M45 30 C30 5,5 5,5 22 C5 38,28 38,45 30 C28 38,5 38,5 22' fill='%23ffb3d1' stroke='%23e04b86' stroke-width='2'/%3E%3Cpath d='M45 30 C60 5,85 5,85 22 C85 38,62 38,45 30' fill='%23ffc3dc' stroke='%23e04b86' stroke-width='2'/%3E%3Ccircle cx='45' cy='30' r='7' fill='%23f7669e' stroke='%23e04b86' stroke-width='2'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+  z-index: 2;
 }
 .bouquet-flower {
   position: absolute;
-  width: 54px; height: 54px;
+  width: 50px; height: 50px;
   cursor: pointer;
+  transform: translate(-50%, -50%);
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'%3E%3Cg fill='%23ffb3d1' stroke='%23e04b86' stroke-width='1.5'%3E%3Cellipse cx='40' cy='18' rx='11' ry='16'/%3E%3Cellipse cx='40' cy='62' rx='11' ry='16'/%3E%3Cellipse cx='18' cy='40' rx='16' ry='11'/%3E%3Cellipse cx='62' cy='40' rx='16' ry='11'/%3E%3Cellipse cx='24' cy='24' rx='11' ry='16' transform='rotate(-45 24 24)'/%3E%3Cellipse cx='56' cy='56' rx='11' ry='16' transform='rotate(-45 56 56)'/%3E%3Cellipse cx='56' cy='24' rx='11' ry='16' transform='rotate(45 56 24)'/%3E%3Cellipse cx='24' cy='56' rx='11' ry='16' transform='rotate(45 24 56)'/%3E%3C/g%3E%3Ccircle cx='40' cy='40' r='11' fill='%23f7669e'/%3E%3C/svg%3E");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
   animation: flowerSway 3.4s ease-in-out infinite;
-  transition: transform 0.15s ease;
+  transform-origin: 50% 90%;
+  z-index: 3;
 }
 .bouquet-flower:nth-child(odd) { animation-duration: 4s; }
-.bouquet-flower:hover, .bouquet-flower:active { transform: scale(1.15); }
-.bouquet-flower.picked { opacity: 0.35; }
+.bouquet-flower:hover { filter: brightness(1.08); }
+.bouquet-flower.plucked { animation: flowerPluck 0.5s ease; }
+@keyframes flowerPluck {
+  0%   { transform: translate(-50%, -50%) rotate(-6deg) scale(1); }
+  35%  { transform: translate(-50%, -62%) rotate(10deg) scale(1.22); }
+  65%  { transform: translate(-50%, -46%) rotate(-8deg) scale(0.96); }
+  100% { transform: translate(-50%, -50%) rotate(-6deg) scale(1); }
+}
 @keyframes flowerSway {
-  0%, 100% { transform: rotate(-6deg); }
-  50% { transform: rotate(6deg); }
+  0%, 100% { transform: translate(-50%, -50%) rotate(-6deg); }
+  50% { transform: translate(-50%, -50%) rotate(6deg); }
 }
 .bouquet-note {
   max-width: 300px;
@@ -863,7 +923,11 @@ html, body {
 
 /* ============ TOP 3 PLAYLIST ============ */
 .playlist-section { position: relative; }
-.playlist-star { position: absolute; top: 24px; right: 50%; transform: translateX(60px) rotate(-10deg); }
+.playlist-star { position: absolute; top: 24px; right: 50%; transform: translateX(60px) rotate(-10deg); animation: playlistStarSway 3s ease-in-out infinite; }
+@keyframes playlistStarSway {
+  0%, 100% { transform: translateX(60px) rotate(-10deg) scale(1); }
+  50% { transform: translateX(60px) rotate(8deg) scale(1.1); }
+}
 .playlist-title { margin-bottom: 26px; }
 .playlist-list {
   max-width: 340px;
@@ -872,6 +936,29 @@ html, body {
   flex-direction: column;
   gap: 14px;
 }
+
+
+/* ============ GENTLE SWAY FOR DECORATIVE ICONS ============ */
+@keyframes iconBob {
+  0%, 100% { transform: translateY(0) rotate(-4deg); }
+  50% { transform: translateY(-6px) rotate(4deg); }
+}
+@keyframes bowSwayCenter {
+  0%, 100% { transform: translateX(-50%) rotate(-5deg); }
+  50% { transform: translateX(-50%) rotate(5deg); }
+}
+.calendar-paw { animation: iconBob 3.2s ease-in-out infinite; }
+.calendar-flower { animation: iconBob 3.6s ease-in-out infinite 0.3s; }
+.heart-star { animation: iconBob 3.4s ease-in-out infinite 0.2s; }
+.heart-bubble { animation: iconBob 3s ease-in-out infinite 0.6s; }
+.heart-bow { animation: bowSwayCenter 3.4s ease-in-out infinite; }
+.message-bow-top { animation: bowSwayCenter 3.2s ease-in-out infinite 0.4s; }
+.gallery-bear { animation: iconBob 3.6s ease-in-out infinite; }
+.oval-butterfly { animation: iconBob 2.8s ease-in-out infinite 0.2s; }
+.oval-envelope { animation: iconBob 3.8s ease-in-out infinite 0.5s; }
+.oval-cloud { animation: iconBob 4s ease-in-out infinite 0.1s; }
+.closing-tulips { animation: iconBob 3.4s ease-in-out infinite 0.3s; }
+.closing-teddy { animation: iconBob 3.6s ease-in-out infinite 0.6s; }
 
 @media (min-width: 640px) {
   .script-title { font-size: 3.2rem; }

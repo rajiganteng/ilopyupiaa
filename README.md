@@ -21,14 +21,18 @@ Website ucapan happy birthday untuk **Fitria Rahmadanie**, tema pink, dibuat mur
 │   │   ├── gallery-1.jpg .. gallery-6.jpg   (foto galeri)
 │   │   ├── closing.jpg        (foto penutup)
 │   │   └── cover.jpg           (gambar untuk preview link/OG image)
-│   └── songs/              -> musik
-│       └── music.mp3          (musik utama — GANTI dengan lagu asli, lihat bagian Musik di bawah)
+│   └── songs/              -> musik & sound effect
+│       ├── music.mp3          (musik utama — GANTI dengan lagu asli, lihat bagian Musik di bawah)
+│       ├── pin-correct.mp3    (bunyi saat PIN benar)
+│       └── pin-wrong.mp3      (bunyi saat PIN salah)
 └── README.md (file ini)
 ```
 
 ## 1. PIN masuk
 
-PIN-nya **20100830** (format: tahun-bulan-tanggal lahir → 30 Agustus 2010). Clue yang ditampilkan ke pacarmu: *"tahun, bulan, tanggal lahir kamu :3"*.
+PIN-nya **20100830** (format: tahun-bulan-tanggal lahir → 30 Agustus 2010). Clue yang ditampilkan ke pacarmu: *"tahun, bulan, tanggal lahir kamu :3"*. Setiap digit yang diketik ditampilkan sebagai bentuk **hati**, bukan angka/titik biasa. Salah PIN akan bunyi + pesan "huuu salahhhhh dekksss", benar akan bunyi + lanjut ke halaman buka kado.
+
+Suara PIN benar/salah ada di `assets/songs/pin-correct.mp3` dan `assets/songs/pin-wrong.mp3` — saat ini masih nada uji coba sederhana, boleh diganti kalau mau pakai bunyi lain (nama file harus tetap sama).
 
 Kalau mau ganti PIN, buka `script.js`, baris paling atas:
 ```js

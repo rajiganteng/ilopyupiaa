@@ -24,6 +24,13 @@ const HEART_SVG =
   "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 29'%3E%3Cpath fill='%23f7669e' d='M16 29S0 18.5 0 8.8C0 3.9 3.9 0 8.7 0c2.9 0 5.6 1.4 7.3 3.7C17.7 1.4 20.4 0 23.3 0 28.1 0 32 3.9 32 8.8 32 18.5 16 29 16 29z'/%3E%3C/svg%3E";
 const FLOWER_SVG =
   "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'%3E%3Cg fill='%23ffb3d1' stroke='%23e04b86' stroke-width='1.5'%3E%3Cellipse cx='40' cy='18' rx='11' ry='16'/%3E%3Cellipse cx='40' cy='62' rx='11' ry='16'/%3E%3Cellipse cx='18' cy='40' rx='16' ry='11'/%3E%3Cellipse cx='62' cy='40' rx='16' ry='11'/%3E%3Cellipse cx='24' cy='24' rx='11' ry='16' transform='rotate(-45 24 24)'/%3E%3Cellipse cx='56' cy='56' rx='11' ry='16' transform='rotate(-45 56 56)'/%3E%3Cellipse cx='56' cy='24' rx='11' ry='16' transform='rotate(45 56 24)'/%3E%3Cellipse cx='24' cy='56' rx='11' ry='16' transform='rotate(45 24 56)'/%3E%3C/g%3E%3Ccircle cx='40' cy='40' r='11' fill='%23f7669e'/%3E%3C/svg%3E";
+const STAR_SVG =
+  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Cpath fill='%23ffd35e' stroke='%23e0a53a' stroke-width='1.5' d='M30 4l7 16 17 2-13 12 4 17-15-9-15 9 4-17-13-12 17-2z'/%3E%3C/svg%3E";
+const SPARKLE_SVG =
+  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpath fill='%23ff8fbb' d='M20 0c1 9 3 15 20 20-17 5-19 11-20 20-1-9-3-15-20-20 17-5 19-11 20-20z'/%3E%3C/svg%3E";
+const BOW_SVG =
+  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 90 60'%3E%3Cpath d='M45 30 C30 5,5 5,5 22 C5 38,28 38,45 30 C28 38,5 38,5 22' fill='%23ffb3d1' stroke='%23e04b86' stroke-width='2'/%3E%3Cpath d='M45 30 C60 5,85 5,85 22 C85 38,62 38,45 30' fill='%23ffc3dc' stroke='%23e04b86' stroke-width='2'/%3E%3Ccircle cx='45' cy='30' r='7' fill='%23f7669e' stroke='%23e04b86' stroke-width='2'/%3E%3C/svg%3E";
+const CONFETTI_SVGS = [HEART_SVG, FLOWER_SVG, STAR_SVG, SPARKLE_SVG, BOW_SVG];
 
 // ================= BACKGROUND FLOATING HEARTS =================
 function spawnBgHearts() {
@@ -103,9 +110,20 @@ function initPinScreen() {
   const dotsWrap = document.getElementById("pinDots");
   const errorEl = document.getElementById("pinError");
   const keypad = document.getElementById("keypad");
+  const wrongSound = document.getElementById("pinWrongSound");
+  const correctSound = document.getElementById("pinCorrectSound");
   if (!pinScreen || !dotsWrap || !keypad) return;
 
   let entered = "";
+
+  function playSound(el) {
+    if (!el) return;
+    try {
+      el.currentTime = 0;
+      const p = el.play();
+      if (p && p.catch) p.catch(() => {});
+    } catch (e) {}
+  }
 
   function renderDots() {
     dotsWrap.innerHTML = "";
@@ -117,6 +135,7 @@ function initPinScreen() {
   }
 
   function showError() {
+    playSound(wrongSound);
     errorEl.hidden = false;
     dotsWrap.classList.add("shake");
     setTimeout(() => {
@@ -127,6 +146,7 @@ function initPinScreen() {
   }
 
   function unlockSite() {
+    playSound(correctSound);
     pinScreen.classList.add("hide");
     setTimeout(() => {
       pinScreen.hidden = true;
@@ -178,16 +198,19 @@ function buildGiftBurstPieces() {
   const burst = document.getElementById("giftBurst");
   if (!burst) return;
   burst.innerHTML = "";
-  const total = 16;
+  const total = 22;
   for (let i = 0; i < total; i++) {
     const piece = document.createElement("span");
     piece.className = "burst-piece";
-    const isHeart = i % 2 === 0;
-    piece.style.backgroundImage = `url("${isHeart ? HEART_SVG : FLOWER_SVG}")`;
+    const svg = CONFETTI_SVGS[i % CONFETTI_SVGS.length];
+    piece.style.backgroundImage = `url("${svg}")`;
     piece.style.backgroundSize = "contain";
     piece.style.backgroundRepeat = "no-repeat";
-    const angle = (i / total) * Math.PI * 2;
-    const dist = 90 + Math.random() * 70;
+    const size = 12 + Math.random() * 10;
+    piece.style.width = size + "px";
+    piece.style.height = size + "px";
+    const angle = (i / total) * Math.PI * 2 + (Math.random() - 0.5) * 0.3;
+    const dist = 90 + Math.random() * 80;
     const tx = Math.cos(angle) * dist;
     const ty = Math.sin(angle) * dist;
     piece.style.setProperty("--tx", `calc(-50% + ${tx}px)`);
@@ -336,32 +359,74 @@ function initBouquet() {
   const noteText = document.getElementById("bouquetNoteText");
   if (!field) return;
 
-  const cols = 5;
-  const rows = 2;
+  const width = field.clientWidth || 340;
+  const height = field.clientHeight || 340;
+  const base = { x: width / 2, y: height - 18 };
+  const count = 10;
   const messages = [...BOUQUET_MESSAGES];
 
-  let index = 0;
-  for (let r = 0; r < rows; r++) {
-    for (let c = 0; c < cols; c++) {
-      const flower = document.createElement("div");
-      flower.className = "bouquet-flower";
-      const jitterX = (Math.random() - 0.5) * 14;
-      const jitterY = (Math.random() - 0.5) * 14;
-      const leftPct = (c + 0.5) * (100 / cols) + jitterX * 0.2;
-      const topPx = r * 140 + 20 + jitterY;
-      flower.style.left = `calc(${leftPct}% - 27px)`;
-      flower.style.top = topPx + "px";
-      flower.style.animationDelay = Math.random() * 2 + "s";
-      const msg = messages[index % messages.length];
-      index++;
-      flower.addEventListener("click", () => {
-        noteText.textContent = msg;
-        note.hidden = false;
-        flower.classList.add("picked");
-      });
-      field.appendChild(flower);
-    }
+  // SVG layer for stems (drawn first, sits behind flowers)
+  const svgNS = "http://www.w3.org/2000/svg";
+  const svg = document.createElementNS(svgNS, "svg");
+  svg.setAttribute("class", "bouquet-stem-svg");
+  svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
+  field.appendChild(svg);
+
+  const positions = [];
+  for (let i = 0; i < count; i++) {
+    const t = count === 1 ? 0.5 : i / (count - 1);
+    const angleDeg = -65 + t * 130; // fan spread
+    const rad = (angleDeg * Math.PI) / 180;
+    const radius = 118 + Math.abs(i - (count - 1) / 2) * 11 + (i % 2 === 0 ? 6 : 0);
+    const x = base.x + radius * Math.sin(rad);
+    const y = base.y - radius * Math.cos(rad) - 26;
+    positions.push({ x, y, angleDeg });
   }
+
+  positions.forEach((pos) => {
+    const midX = (base.x + pos.x) / 2 + (Math.random() - 0.5) * 12;
+    const midY = (base.y + pos.y) / 2;
+    const path = document.createElementNS(svgNS, "path");
+    path.setAttribute(
+      "d",
+      `M ${base.x} ${base.y} Q ${midX} ${midY} ${pos.x} ${pos.y}`
+    );
+    path.setAttribute("fill", "none");
+    path.setAttribute("stroke", "#3c8a4c");
+    path.setAttribute("stroke-width", "3");
+    path.setAttribute("stroke-linecap", "round");
+    svg.appendChild(path);
+  });
+
+  // bow tying the stems at the base
+  const bow = document.createElement("div");
+  bow.className = "bouquet-bow";
+  bow.style.left = base.x + "px";
+  bow.style.top = base.y + 4 + "px";
+  field.appendChild(bow);
+
+  let index = 0;
+  positions.forEach((pos) => {
+    const flower = document.createElement("div");
+    flower.className = "bouquet-flower";
+    flower.style.left = pos.x + "px";
+    flower.style.top = pos.y + "px";
+    flower.style.animationDelay = Math.random() * 2 + "s";
+    const msg = messages[index % messages.length];
+    index++;
+    flower.addEventListener("click", () => {
+      noteText.textContent = msg;
+      note.hidden = false;
+      flower.classList.remove("plucked");
+      // restart the pluck animation every click so it can be reopened repeatedly
+      void flower.offsetWidth;
+      flower.classList.add("plucked");
+    });
+    flower.addEventListener("animationend", (e) => {
+      if (e.animationName === "flowerPluck") flower.classList.remove("plucked");
+    });
+    field.appendChild(flower);
+  });
 }
 
 // ================= CLICK HEART BURST =================
