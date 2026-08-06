@@ -117,34 +117,6 @@ function initPinScreen() {
   if (!pinScreen || !dotsWrap || !keypad) return;
 
   let entered = "";
-  let audioPrimed = false;
-
-  // iOS/Safari can throttle .play() calls that aren't directly inside a user
-  // gesture. Priming (playing muted + pausing) on the very first tap keeps
-  // both sound effects reliably playable on every later attempt.
-  function primeAudio() {
-    if (audioPrimed) return;
-    audioPrimed = true;
-    [wrongSound, correctSound].forEach((el) => {
-      if (!el) return;
-      const targetVolume = el.volume;
-      el.volume = 0;
-      const p = el.play();
-      if (p && p.then) {
-        p.then(() => {
-          el.pause();
-          el.currentTime = 0;
-          el.volume = targetVolume;
-        }).catch(() => {
-          el.volume = targetVolume;
-        });
-      } else {
-        el.pause();
-        el.currentTime = 0;
-        el.volume = targetVolume;
-      }
-    });
-  }
 
   function playSound(el, startAt) {
     if (!el) return;
@@ -197,7 +169,6 @@ function initPinScreen() {
   }
 
   keypad.addEventListener("click", (e) => {
-    primeAudio();
     const btn = e.target.closest(".key");
     if (!btn) return;
     const key = btn.dataset.key;
