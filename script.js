@@ -30,6 +30,8 @@ const SPARKLE_SVG =
   "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpath fill='%23ff8fbb' d='M20 0c1 9 3 15 20 20-17 5-19 11-20 20-1-9-3-15-20-20 17-5 19-11 20-20z'/%3E%3C/svg%3E";
 const BOW_SVG =
   "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 90 60'%3E%3Cpath d='M45 30 C30 5,5 5,5 22 C5 38,28 38,45 30 C28 38,5 38,5 22' fill='%23ffb3d1' stroke='%23e04b86' stroke-width='2'/%3E%3Cpath d='M45 30 C60 5,85 5,85 22 C85 38,62 38,45 30' fill='%23ffc3dc' stroke='%23e04b86' stroke-width='2'/%3E%3Ccircle cx='45' cy='30' r='7' fill='%23f7669e' stroke='%23e04b86' stroke-width='2'/%3E%3C/svg%3E";
+const FLOWER2_SVG =
+  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 50'%3E%3Cg fill='%23ffd6e8' stroke='%23e0729e' stroke-width='1'%3E%3Cellipse cx='25' cy='11' rx='7' ry='11'/%3E%3Cellipse cx='25' cy='11' rx='7' ry='11' transform='rotate(72 25 25)'/%3E%3Cellipse cx='25' cy='11' rx='7' ry='11' transform='rotate(144 25 25)'/%3E%3Cellipse cx='25' cy='11' rx='7' ry='11' transform='rotate(216 25 25)'/%3E%3Cellipse cx='25' cy='11' rx='7' ry='11' transform='rotate(288 25 25)'/%3E%3C/g%3E%3Ccircle cx='25' cy='25' r='5.5' fill='%23ffd35e'/%3E%3C/svg%3E";
 const CONFETTI_SVGS = [HEART_SVG, FLOWER_SVG, STAR_SVG, SPARKLE_SVG, BOW_SVG];
 
 // ================= BACKGROUND FLOATING HEARTS =================
@@ -115,11 +117,39 @@ function initPinScreen() {
   if (!pinScreen || !dotsWrap || !keypad) return;
 
   let entered = "";
+  let audioPrimed = false;
 
-  function playSound(el) {
+  // iOS/Safari can throttle .play() calls that aren't directly inside a user
+  // gesture. Priming (playing muted + pausing) on the very first tap keeps
+  // both sound effects reliably playable on every later attempt.
+  function primeAudio() {
+    if (audioPrimed) return;
+    audioPrimed = true;
+    [wrongSound, correctSound].forEach((el) => {
+      if (!el) return;
+      const targetVolume = el.volume;
+      el.volume = 0;
+      const p = el.play();
+      if (p && p.then) {
+        p.then(() => {
+          el.pause();
+          el.currentTime = 0;
+          el.volume = targetVolume;
+        }).catch(() => {
+          el.volume = targetVolume;
+        });
+      } else {
+        el.pause();
+        el.currentTime = 0;
+        el.volume = targetVolume;
+      }
+    });
+  }
+
+  function playSound(el, startAt) {
     if (!el) return;
     try {
-      el.currentTime = 0;
+      el.currentTime = startAt || 0;
       const p = el.play();
       if (p && p.catch) p.catch(() => {});
     } catch (e) {}
@@ -135,6 +165,7 @@ function initPinScreen() {
   }
 
   function showError() {
+    // sound + text fire together, in the same synchronous tick
     playSound(wrongSound);
     errorEl.hidden = false;
     dotsWrap.classList.add("shake");
@@ -146,7 +177,8 @@ function initPinScreen() {
   }
 
   function unlockSite() {
-    playSound(correctSound);
+    // start 0.1s into the clip so it feels snappier / less laggy
+    playSound(correctSound, 0.1);
     pinScreen.classList.add("hide");
     setTimeout(() => {
       pinScreen.hidden = true;
@@ -165,6 +197,7 @@ function initPinScreen() {
   }
 
   keypad.addEventListener("click", (e) => {
+    primeAudio();
     const btn = e.target.closest(".key");
     if (!btn) return;
     const key = btn.dataset.key;
@@ -185,8 +218,10 @@ function initPinScreen() {
     entered += key;
     errorEl.hidden = true;
     renderDots();
+    // check immediately (same click/gesture tick) so the sound effect
+    // is allowed to play reliably on every attempt, not just the first
     if (entered.length === PIN_CODE.length) {
-      setTimeout(checkPin, 150);
+      checkPin();
     }
   });
 
@@ -220,6 +255,34 @@ function buildGiftBurstPieces() {
   }
 }
 
+function buildFullScreenFlowerBurst() {
+  const overlay = document.getElementById("giftFlowerOverlay");
+  if (!overlay) return;
+  overlay.innerHTML = "";
+  const variants = [FLOWER_SVG, FLOWER2_SVG];
+  const total = 26;
+  for (let i = 0; i < total; i++) {
+    const el = document.createElement("span");
+    const fromLeft = i % 2 === 0;
+    el.className = "gift-flower-piece " + (fromLeft ? "from-left" : "from-right");
+    const svg = variants[i % variants.length];
+    el.style.backgroundImage = `url("${svg}")`;
+    const size = 30 + Math.random() * 34;
+    el.style.width = size + "px";
+    el.style.height = size + "px";
+    el.style.top = 4 + Math.random() * 88 + "%";
+    const travel = 38 + Math.random() * 34;
+    el.style.setProperty("--travel", travel + "vw");
+    const rot = (Math.random() * 70 - 35).toFixed(0);
+    el.style.setProperty("--rot", rot + "deg");
+    el.style.animationDelay = Math.random() * 0.4 + "s";
+    overlay.appendChild(el);
+  }
+  setTimeout(() => {
+    overlay.innerHTML = "";
+  }, 2400);
+}
+
 function initCoverOpen() {
   const giftBox = document.getElementById("giftBox");
   const cover = document.getElementById("cover");
@@ -232,11 +295,12 @@ function initCoverOpen() {
     if (opened) return;
     opened = true;
     buildGiftBurstPieces();
+    buildFullScreenFlowerBurst();
     giftBox.classList.add("opening");
 
     setTimeout(() => {
       cover.classList.add("hide");
-    }, 500);
+    }, 600);
 
     setTimeout(() => {
       cover.style.display = "none";
@@ -246,7 +310,7 @@ function initCoverOpen() {
       initScrollReveal();
       // try to autoplay music softly after user gesture
       playMusic();
-    }, 1050);
+    }, 1500);
   }
 
   giftBox.addEventListener("click", openSite);
@@ -398,11 +462,18 @@ function initBouquet() {
     svg.appendChild(path);
   });
 
+  // paper wrap around the base of the stems (like real bouquet wrapping)
+  const paper = document.createElement("div");
+  paper.className = "bouquet-paper-wrap";
+  paper.style.left = base.x + "px";
+  paper.style.top = base.y - 58 + "px";
+  field.appendChild(paper);
+
   // bow tying the stems at the base
   const bow = document.createElement("div");
   bow.className = "bouquet-bow";
   bow.style.left = base.x + "px";
-  bow.style.top = base.y + 4 + "px";
+  bow.style.top = base.y - 8 + "px";
   field.appendChild(bow);
 
   let index = 0;
