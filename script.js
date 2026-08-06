@@ -149,8 +149,8 @@ function initPinScreen() {
   }
 
   function unlockSite() {
-    // start 0.1s into the clip so it feels snappier / less laggy
-    playSound(correctSound, 0.1);
+    // start further into the clip so it feels snappier / less laggy
+    playSound(correctSound, 0.2);
     pinScreen.classList.add("hide");
     setTimeout(() => {
       pinScreen.hidden = true;
@@ -231,27 +231,31 @@ function buildFullScreenFlowerBurst() {
   if (!overlay) return;
   overlay.innerHTML = "";
   const variants = [FLOWER_SVG, FLOWER2_SVG];
-  const total = 26;
+  const total = 42;
   for (let i = 0; i < total; i++) {
     const el = document.createElement("span");
     const fromLeft = i % 2 === 0;
     el.className = "gift-flower-piece " + (fromLeft ? "from-left" : "from-right");
     const svg = variants[i % variants.length];
     el.style.backgroundImage = `url("${svg}")`;
-    const size = 30 + Math.random() * 34;
+    const size = 26 + Math.random() * 46;
     el.style.width = size + "px";
     el.style.height = size + "px";
-    el.style.top = 4 + Math.random() * 88 + "%";
-    const travel = 38 + Math.random() * 34;
+    el.style.top = Math.random() * 96 + "%";
+    const travel = 55 + Math.random() * 42;
     el.style.setProperty("--travel", travel + "vw");
-    const rot = (Math.random() * 70 - 35).toFixed(0);
+    const drift = (Math.random() * 40 - 20).toFixed(0);
+    el.style.setProperty("--drift", drift + "px");
+    const rot = (Math.random() * 90 - 45).toFixed(0);
     el.style.setProperty("--rot", rot + "deg");
-    el.style.animationDelay = Math.random() * 0.4 + "s";
+    const duration = 1.9 + Math.random() * 0.6;
+    el.style.animationDuration = duration + "s";
+    el.style.animationDelay = Math.random() * 0.5 + "s";
     overlay.appendChild(el);
   }
   setTimeout(() => {
     overlay.innerHTML = "";
-  }, 2400);
+  }, 3000);
 }
 
 function initCoverOpen() {
@@ -271,7 +275,7 @@ function initCoverOpen() {
 
     setTimeout(() => {
       cover.classList.add("hide");
-    }, 600);
+    }, 650);
 
     setTimeout(() => {
       cover.style.display = "none";
@@ -281,7 +285,7 @@ function initCoverOpen() {
       initScrollReveal();
       // try to autoplay music softly after user gesture
       playMusic();
-    }, 1500);
+    }, 1700);
   }
 
   giftBox.addEventListener("click", openSite);

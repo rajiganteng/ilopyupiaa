@@ -93,11 +93,11 @@ html, body {
 }
 .ico-bouquet {
   width: 70px; height: 90px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 90 110'%3E%3Cpath d='M45 60 L20 108 L70 108 Z' fill='%23f7c8dc' stroke='%23e04b86' stroke-width='2'/%3E%3Cg stroke='%233c8a4c' stroke-width='2'%3E%3Cline x1='45' y1='60' x2='30' y2='40'/%3E%3Cline x1='45' y1='60' x2='45' y2='38'/%3E%3Cline x1='45' y1='60' x2='60' y2='40'/%3E%3C/g%3E%3Cg%3E%3Ccircle cx='30' cy='34' r='11' fill='%23ff8fbb' stroke='%23e04b86' stroke-width='1.5'/%3E%3Ccircle cx='45' cy='28' r='13' fill='%23ffb3d1' stroke='%23e04b86' stroke-width='1.5'/%3E%3Ccircle cx='60' cy='34' r='11' fill='%23ff8fbb' stroke='%23e04b86' stroke-width='1.5'/%3E%3Ccircle cx='30' cy='34' r='4' fill='%23fff59e'/%3E%3Ccircle cx='45' cy='28' r='4.5' fill='%23fff59e'/%3E%3Ccircle cx='60' cy='34' r='4' fill='%23fff59e'/%3E%3C/g%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 90 110'%3E%3Cpath d='M20 60 A8 8 0 0 1 36 60 A8 8 0 0 1 52 60 A8 8 0 0 1 68 60 L45 108 Z' fill='%23f7c8dc' stroke='%23e04b86' stroke-width='2'/%3E%3Cg stroke='%233c8a4c' stroke-width='2'%3E%3Cline x1='45' y1='60' x2='30' y2='40'/%3E%3Cline x1='45' y1='60' x2='45' y2='38'/%3E%3Cline x1='45' y1='60' x2='60' y2='40'/%3E%3C/g%3E%3Cg%3E%3Ccircle cx='30' cy='34' r='11' fill='%23ff8fbb' stroke='%23e04b86' stroke-width='1.5'/%3E%3Ccircle cx='45' cy='28' r='13' fill='%23ffb3d1' stroke='%23e04b86' stroke-width='1.5'/%3E%3Ccircle cx='60' cy='34' r='11' fill='%23ff8fbb' stroke='%23e04b86' stroke-width='1.5'/%3E%3Ccircle cx='30' cy='34' r='4' fill='%23fff59e'/%3E%3Ccircle cx='45' cy='28' r='4.5' fill='%23fff59e'/%3E%3Ccircle cx='60' cy='34' r='4' fill='%23fff59e'/%3E%3C/g%3E%3C/svg%3E");
 }
 .ico-tulips {
   width: 90px; height: 110px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 120'%3E%3Cpath d='M50 65 L28 116 L72 116 Z' fill='%23ffe3ee' stroke='%23e04b86' stroke-width='2'/%3E%3Cg stroke='%233c8a4c' stroke-width='2' fill='none'%3E%3Cpath d='M35 70 C30 55,32 45,32 34'/%3E%3Cpath d='M50 70 L50 30'/%3E%3Cpath d='M65 70 C70 55,68 45,68 34'/%3E%3C/g%3E%3Cg fill='%23f7669e' stroke='%23b23568' stroke-width='1'%3E%3Cpath d='M32 34c-7-2-9-12-4-18 3 5 4 9 4 18z'/%3E%3Cpath d='M32 34c7-2 9-12 4-18-3 5-4 9-4 18z'/%3E%3Cpath d='M32 34c0-9 0-16 0-22 4 4 6 12 0 22z'/%3E%3Cpath d='M50 30c-7-2-9-12-4-18 3 5 4 9 4 18z'/%3E%3Cpath d='M50 30c7-2 9-12 4-18-3 5-4 9-4 18z'/%3E%3Cpath d='M50 30c0-9 0-16 0-22 4 4 6 12 0 22z'/%3E%3Cpath d='M68 34c-7-2-9-12-4-18 3 5 4 9 4 18z'/%3E%3Cpath d='M68 34c7-2 9-12 4-18-3 5-4 9-4 18z'/%3E%3Cpath d='M68 34c0-9 0-16 0-22 4 4 6 12 0 22z'/%3E%3C/g%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 120'%3E%3Cpath d='M28 65 A7.3 7.3 0 0 1 42.6 65 A7.3 7.3 0 0 1 57.2 65 A7.3 7.3 0 0 1 71.8 65 L50 116 Z' fill='%23ffe3ee' stroke='%23e04b86' stroke-width='2'/%3E%3Cg stroke='%233c8a4c' stroke-width='2' fill='none'%3E%3Cpath d='M35 70 C30 55,32 45,32 34'/%3E%3Cpath d='M50 70 L50 30'/%3E%3Cpath d='M65 70 C70 55,68 45,68 34'/%3E%3C/g%3E%3Cg fill='%23f7669e' stroke='%23b23568' stroke-width='1'%3E%3Cpath d='M32 34c-7-2-9-12-4-18 3 5 4 9 4 18z'/%3E%3Cpath d='M32 34c7-2 9-12 4-18-3 5-4 9-4 18z'/%3E%3Cpath d='M32 34c0-9 0-16 0-22 4 4 6 12 0 22z'/%3E%3Cpath d='M50 30c-7-2-9-12-4-18 3 5 4 9 4 18z'/%3E%3Cpath d='M50 30c7-2 9-12 4-18-3 5-4 9-4 18z'/%3E%3Cpath d='M50 30c0-9 0-16 0-22 4 4 6 12 0 22z'/%3E%3Cpath d='M68 34c-7-2-9-12-4-18 3 5 4 9 4 18z'/%3E%3Cpath d='M68 34c7-2 9-12 4-18-3 5-4 9-4 18z'/%3E%3Cpath d='M68 34c0-9 0-16 0-22 4 4 6 12 0 22z'/%3E%3C/g%3E%3C/svg%3E");
 }
 .ico-butterfly {
   width: 60px; height: 50px;
@@ -848,23 +848,29 @@ html, body {
 }
 .gift-flower-piece.from-left {
   left: -70px;
-  animation: flowerFlyLeft 1.7s cubic-bezier(.22,.8,.36,1) forwards;
+  animation-name: flowerFlyLeft;
+  animation-timing-function: cubic-bezier(.25,.7,.3,1);
+  animation-fill-mode: forwards;
 }
 .gift-flower-piece.from-right {
   right: -70px;
-  animation: flowerFlyRight 1.7s cubic-bezier(.22,.8,.36,1) forwards;
+  animation-name: flowerFlyRight;
+  animation-timing-function: cubic-bezier(.25,.7,.3,1);
+  animation-fill-mode: forwards;
 }
 @keyframes flowerFlyLeft {
-  0%   { transform: translateX(0) rotate(0deg); opacity: 0; }
+  0%   { transform: translate(0, 0) rotate(0deg) scale(0.35); opacity: 0; }
   14%  { opacity: 1; }
-  62%  { transform: translateX(var(--travel)) rotate(var(--rot)); opacity: 1; }
-  100% { transform: translateX(calc(var(--travel) + 8vw)) rotate(var(--rot)); opacity: 0; }
+  42%  { transform: translate(calc(var(--travel) * 0.55), calc(var(--drift) * -1)) rotate(calc(var(--rot) * 0.5)) scale(1.12); }
+  72%  { transform: translate(calc(var(--travel) * 0.92), calc(var(--drift) * 0.4)) rotate(var(--rot)) scale(1); opacity: 1; }
+  100% { transform: translate(calc(var(--travel) + 10vw), var(--drift)) rotate(calc(var(--rot) + 25deg)) scale(0.9); opacity: 0; }
 }
 @keyframes flowerFlyRight {
-  0%   { transform: translateX(0) rotate(0deg); opacity: 0; }
+  0%   { transform: translate(0, 0) rotate(0deg) scale(0.35); opacity: 0; }
   14%  { opacity: 1; }
-  62%  { transform: translateX(calc(-1 * var(--travel))) rotate(var(--rot)); opacity: 1; }
-  100% { transform: translateX(calc(-1 * var(--travel) - 8vw)) rotate(var(--rot)); opacity: 0; }
+  42%  { transform: translate(calc(-1 * var(--travel) * 0.55), calc(var(--drift) * -1)) rotate(calc(var(--rot) * -0.5)) scale(1.12); }
+  72%  { transform: translate(calc(-1 * var(--travel) * 0.92), calc(var(--drift) * 0.4)) rotate(calc(-1 * var(--rot))) scale(1); opacity: 1; }
+  100% { transform: translate(calc(-1 * var(--travel) - 10vw), var(--drift)) rotate(calc(-1 * var(--rot) - 25deg)) scale(0.9); opacity: 0; }
 }
 
 /* ============ GIFT OPEN ANIMATION ============ */
@@ -922,9 +928,9 @@ html, body {
 }
 .bouquet-paper-wrap {
   position: absolute;
-  width: 190px; height: 128px;
+  width: 190px; height: 130px;
   transform: translate(-50%, 0);
-  clip-path: polygon(50% 0%, 94% 100%, 6% 100%);
+  clip-path: path('M15 40 A16 16 0 0 1 47 40 A16 16 0 0 1 79 40 A16 16 0 0 1 111 40 A16 16 0 0 1 143 40 A16 16 0 0 1 175 40 L95 128 Z');
   background: linear-gradient(175deg, #fff6ee 0%, #ffe1c7 55%, #ffcda1 100%);
   box-shadow: 0 10px 18px rgba(200,110,70,0.22);
   z-index: 2;
